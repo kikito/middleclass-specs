@@ -1,5 +1,7 @@
 h1. MiddleClass specs
 
+These are the specs of "middleclass":http://github.com/kikito/middleclass
+
 These specs have been implemented using "telescope":http://github.com/norman/telescope
 
 They are a series of tests that verify that the current implementation of MiddleClass works as expected. It is recommended to run them after modifying MiddleClass.
@@ -27,14 +29,9 @@ git submodule update
 
 h2. Test execution
 
-Open a console and change to the middleclass-specs top-directory:
-
+Open a console and change to the middleclass-specs top-directory. Then execute @lua run.lua@. It should be configured to start the testing automatically.
 <pre>
-cd middleclass-specs
-</pre>
-
-Then execute @lua run.lua@. It should be configured to start the testing automatically.
-<pre>
+cd your/path/to/middleclass-specs
 lua run.lua
 </pre>
 
