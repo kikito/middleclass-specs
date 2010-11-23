@@ -1,4 +1,4 @@
-require('MiddleClass')
+require('middleclass')
 
 context( 'includes', function()
 

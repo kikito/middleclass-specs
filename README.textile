@@ -1,6 +1,6 @@
 h1. MiddleClass specs
 
-These are the specs of "middleclass":http://github.com/kikito/middleclass
+These are the specs of "middleclass":http://github.com/kikito/middleclass and "middleclass-extras":http://github.com/kikito/middleclass-extras.
 
 These specs have been implemented using "telescope":http://github.com/norman/telescope
 
@@ -19,7 +19,7 @@ The first command might ask about installing some dependencies; answer (y)es to 
 
 h2. Installation
 
-Get the code from github normally, and then update the submodules (*don't forget this step, otherwise middleclass will not be downloaded and you will not be able to run the specs!*)
+Get the code from github normally, and then update the submodules (*don't forget this step, otherwise middleclass and middleclass-extras will not be downloaded and you will not be able to run the specs!*)
 
 <pre>
 git clone git://github.com/kikito/middleclass-specs.git
