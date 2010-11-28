@@ -1,3 +1,4 @@
+require('middleclass')
 require('middleclass-extras')
 
 context( 'Branchy', function()

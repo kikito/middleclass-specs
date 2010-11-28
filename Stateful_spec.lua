@@ -1,3 +1,4 @@
+require('middleclass')
 require('middleclass-extras')
 
 context( 'Stateful', function()
@@ -80,6 +81,11 @@ context( 'Stateful', function()
         panzer:gotoState('Parked')
         
         assert_equal(panzer:getStatus(), 'stopped')
+      end)
+      
+      test('includes() should still work', function()
+        assert_true( includes(Stateful, Tank) )
+        assert_false( includes(Branchy, Tank) )
       end)
     end)
     
