@@ -179,6 +179,12 @@ context( 'Object', function()
   end)
   
   context( 'Metamethods', function()
+    
+    test('__index should throw an error', function()
+      local NonIndexable = class('NonIndexable')
+      
+      assert_error(function() function NonIndexable:__index(name) end end)
+    end)
 
     context('Custom Metamethods', function()
       -- Tests all metamethods. Note that __len is missing (lua makes table length unoverridable)
@@ -219,7 +225,8 @@ context( 'Object', function()
         __concat =   { a..b, 28 },
         __call =     { a(), math.sqrt(14) },
         __pow =      { a^b,  Vector(0,0,0) },
-        __mul =      { 4*a,  Vector(4,8,12) }
+        __mul =      { 4*a,  Vector(4,8,12) }--,
+        --__index =    { b[1], 3 }
       }) do
         test(metamethod .. ' should work', function()
           assert_equal(values[1], values[2])
