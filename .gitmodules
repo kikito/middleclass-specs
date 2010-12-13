@@ -6,4 +6,4 @@
 	url = git://github.com/kikito/middleclass-extras.git
 [submodule "lib/middleclass-ai"]
 	path = lib/middleclass-ai
-	url = git://github.com/splendeo/middleclass-ai.git
+	url = git://github.com/kikito/middleclass-ai.git
