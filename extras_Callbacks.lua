@@ -31,6 +31,7 @@ context( 'Callbacks', function()
   
   local function testInstance(theClass)
     local obj = theClass:new()
+    
     obj:bar()
     obj:barWithoutCallbacks()
 
@@ -39,7 +40,7 @@ context( 'Callbacks', function()
     assert_equal(obj.calls[3], 'baz')
     assert_equal(obj.calls[4], 'bar')
   end
-  
+
   before(redefineA)
 
   test('fooWithoutCallbacks should call foo if no callbacks are defined', function()
@@ -61,8 +62,13 @@ context( 'Callbacks', function()
     addCallbacks(A)
     testInstance(A)
   end)
-
   
+  test('Throws error if theClass:new has been modified when including', function()
+    defineRegularMethods(A)
+    A.new = function() end -- replace new with an empty function
+    assert_error(function() addCallbacks(A) end)
+  end)
+
   context('When subclassing', function()
     local B
 
@@ -83,14 +89,14 @@ context( 'Callbacks', function()
       testInstance(B)
     end)
 
-    test('Callbacks should be conserved in subclasses', function()
+    test('callbacks should be conserved in subclasses', function()
       addCallbacks(A)
       defineRegularMethods(A)
       B = class('B', A)
       testInstance(B)
     end)
 
-    test('Callbacks in subclasses can be used as well as in superclasses', function()
+    test('callbacks in subclasses can be used as well as in superclasses', function()
       addCallbacks(A)
       defineRegularMethods(A)
       addCallbacks(B)
@@ -104,11 +110,27 @@ context( 'Callbacks', function()
       assert_equal(obj.calls[5], 'baz')
     end)
 
+    -- https://github.com/kikito/middleclass-extras/issues/#issue/3
+    test('initialize should be respected', function()
+      A:include(Callbacks)
+      defineRegularMethods(A)
+      A:after('initialize', 'foo')
+      B = class('B', A)
+      function B:initialize()
+        super.initialize(self)
+        self.x = 'x'
+      end
+      
+      local obj = B:new()
+      
+      assert_equal(#obj.calls, 1)
+      assert_equal(obj.x, 'x')
+    end)
+
   end)
 
 
   context('Destroy and Initialize', function()
-
     test('Should have working callbacks too', function()
       redefineA()
       defineRegularMethods(A)

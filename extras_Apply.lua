@@ -96,6 +96,10 @@ context( 'Apply', function()
     context('When subclassing', function()
       before(initialize)
       local MySubClass = class('MySubClass', MyClass)
+      function MySubClass:initialize()
+         super.initialize(self)
+         self.foo = true
+      end
 
       test('Apply on a superclass should include the instances of a subclass, but not viceversa', function()
         MyClass:apply('addToList')
@@ -114,6 +118,14 @@ context( 'Apply', function()
         subobj:destroy()
         MyClass:apply('addToList')
         assert_equal(#list, n)
+      end)
+      
+      test('Initializer should not be overriden by parent class', function()
+        local obj = MySubClass:new()
+        
+        assert_equal(obj.counter, 0)
+        assert_true(obj.foo)
+        
       end)
     end)
   
