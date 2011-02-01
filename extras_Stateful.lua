@@ -9,27 +9,6 @@ context( 'Stateful', function()
       assert_error(function() Stateful.State:subclass() end)
       assert_error(function() Stateful.State:subclass('meh') end)
     end)
-      
-    test('Super calls should work correctly', function()
-      local SuperClass = class('SuperClass'):include(Stateful)
-      function SuperClass:foo() return 'foo' end
-
-      local RootClass = class('RootClass', SuperClass)
-
-      local State1 = RootClass:addState('State1')
-      function State1:foo() return(super.foo(self) .. 'state1') end
-
-      local State2 = RootClass:addState('State2', State1)
-      function State2:foo() return(super.foo(self) .. 'state2') end
-
-      local obj = RootClass:new()
-      
-      obj:gotoState('State1')
-      assert_equal(obj:foo(), 'foostate1')
-      
-      obj:gotoState('State2')
-      assert_equal(obj:foo(), 'foostate1state2')
-    end)
 
   end)
 

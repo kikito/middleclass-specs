@@ -27,13 +27,12 @@ context( 'Object', function()
   context( 'An instance attribute', function()
     local Person = class('Person')
     function Person:initialize(name)
-      super.initialize(self)
       self.name = name
     end
     
     local AgedPerson = class('AgedPerson', Person)
     function AgedPerson:initialize(name, age)
-      super.initialize(self, name)
+      Person.initialize(self, name)
       self.age = age
     end
 
@@ -70,38 +69,6 @@ context( 'Object', function()
     
     test('should be overridable', function()
       assert_equal(b:foo(), 'baz')
-    end)
-  end)
-  
-  context( 'A super call', function()
-    local Level0 = Object:subclass('Level0')
-    function Level0:initialize() self.type = self:getType() end
-    function Level0:getType() return 'level0' end
-    function Level0:getNumber() return 10 end
-
-    local Level1 = Level0:subclass('Level1')
-    function Level1:initialize() super.initialize(self) end
-    function Level1:getType() return 'level1' end
-
-    local Level2 = Level1:subclass('Level2')
-    function Level2:initialize() super.initialize(self) end
-    function Level2:getType() return 'level2' end
-    -- Calling super.getNumber(self) on a Level2 object skips Level1
-    -- (since it's not overriden here) and calls Level0:getNumber()
-    function Level2:getNumber() return super.getNumber(self) + 1 end
-
-    local level0 = Level0:new()
-    local level1 = Level1:new()
-    local level2 = Level2:new()
-
-    test('should jump accross classes when not defined on the middle one', function()
-      assert_equal(level2:getNumber(), 11)
-    end)
-    
-    test('should use the appropiate versions of each method on every level', function()
-      assert_equal(level0.type, 'level0')
-      assert_equal(level1.type, 'level1')
-      assert_equal(level2.type, 'level2')
     end)
   end)
   
@@ -235,7 +202,7 @@ context( 'Object', function()
       
       context('Inherited Metamethods', function()
         local Vector2= class('Vector2', Vector)
-        function Vector2:initialize(x,y,z) super.initialize(self,x,y,z) end
+        function Vector2:initialize(x,y,z) Vector.initialize(self,x,y,z) end
         
         local c = Vector2:new(1,2,3)
         local d = Vector2:new(2,4,6)

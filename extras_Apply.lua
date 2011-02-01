@@ -9,7 +9,6 @@ context( 'Apply', function()
     local list = {}
     
     function MyClass:initialize()
-      super.initialize(self)
       self.counter = 0
     end
     
@@ -97,7 +96,7 @@ context( 'Apply', function()
       before(initialize)
       local MySubClass = class('MySubClass', MyClass)
       function MySubClass:initialize()
-         super.initialize(self)
+         MyClass.initialize(self)
          self.foo = true
       end
 

@@ -8,7 +8,6 @@ context( 'Beholder', function()
     local MyClass = class('MyClass')
     
     function MyClass:initialize()
-      super.initialize(self)
       self.counter = 0
     end
     

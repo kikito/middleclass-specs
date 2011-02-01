@@ -44,7 +44,7 @@ context( 'Indexable', function()
         
         function MyGrandChildClass:index(name)
           if name == 'baz' then return self.bar end
-          if name == 'hello' then return super.index(self, name) end
+          if name == 'hello' then return MyChildClass.index(self, name) end
         end
         
         local obj3 = MyGrandChildClass:new()

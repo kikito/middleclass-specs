@@ -7,7 +7,6 @@ context( 'Callbacks', function()
   local function redefineA()
     A = class('A')
     function A:initialize()
-      super.initialize(self)
       self.calls = {}
     end
     function A:__tostring()
@@ -117,7 +116,7 @@ context( 'Callbacks', function()
       A:after('initialize', 'foo')
       B = class('B', A)
       function B:initialize()
-        super.initialize(self)
+        A.initialize(self)
         self.x = 'x'
       end
       

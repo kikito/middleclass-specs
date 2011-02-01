@@ -7,7 +7,6 @@ context( 'Branchy', function()
 
   local Tree = class('Tree'):include(Branchy)
   function Tree:initialize(name)
-    super.initialize(self)
     self.name = name
   end
   function Tree:addToList()
