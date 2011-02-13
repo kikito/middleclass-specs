@@ -41,7 +41,7 @@ context( 'Branchy', function()
   before(createNodes)
   
   test('The root nodes should be correctly set up', function()
-    for _,node in ipairs({root, a1, a2, b1, b2}) do assert_equal(node.root, root) end
+    for _,node in ipairs({root, a1, a2, b1, b2}) do assert_equal(node:getRoot(), root) end
   end)
 
   test('The parent node should be correctly set up', function()
