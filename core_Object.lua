@@ -2,6 +2,43 @@ require('middleclass')
 
 context( 'Object', function()
 
+  context( 'Allocation and creation', function()
+    test( 'allocate should create proper instances', function()
+      local MyClass = Object:subclass('MyClass')
+      local instance = MyClass:allocate()
+      assert_equal(instance.class, MyClass)
+      assert_equal(getmetatable(instance), MyClass.__classDict)
+    end)
+    
+    test( 'allocate should not call the initializer', function()
+      local MyClass = Object:subclass('MyClass')
+      function MyClass:initialize() self.mark=true end
+
+      local allocated = MyClass:allocate()
+      assert_nil(allocated.mark)
+
+      local initialized = MyClass:new()
+      assert_true(initialized.mark)
+    end)
+    
+    test( 'allocate should be overridable', function()
+      local MyClass = Object:subclass('MyClass')
+      function MyClass.allocate(theClass)
+        local instance = Object:allocate()
+        instance.mark = true
+        return instance
+      end
+      
+      local allocated = MyClass:allocate()
+      assert_true(allocated.mark)
+      
+      local initialized = MyClass:new()
+      assert_true(initialized.mark)
+    end)
+    
+  end)
+
+
   context( 'When creating a direct subclass of Object', function()
 
     context( 'using Object:subclass("name")', function()
