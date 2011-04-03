@@ -61,12 +61,6 @@ context( 'Callbacks', function()
     addCallbacks(A)
     testInstance(A)
   end)
-  
-  test('Throws error if theClass:new has been modified when including', function()
-    defineRegularMethods(A)
-    A.new = function() end -- replace new with an empty function
-    assert_error(function() addCallbacks(A) end)
-  end)
 
   context('When subclassing', function()
     local B
