@@ -3,15 +3,6 @@ require('middleclass-extras')
 
 context( 'Stateful', function()
 
-  context('State', function()
-
-    test('should require 3 parameters when subclassed', function()
-      assert_error(function() Stateful.State:subclass() end)
-      assert_error(function() Stateful.State:subclass('meh') end)
-    end)
-
-  end)
-
   context('A stateful class', function()
     local Warrior = class('Warrior'):include(Stateful)
     local WarriorIddle, WarriorWalking
@@ -156,9 +147,9 @@ context( 'Stateful', function()
         assert_error(function() albert:gotoState('Sleeping') end)
       end)
       test('should be able to go to the nil-state', function()
-        --assert_not_error(function() 
-        albert:gotoState(nil)
-        --end)
+        assert_not_error(function() 
+          albert:gotoState(nil)
+        end)
         assert_equal(albert:getStatus(), 'none')
       end)
       test('enterState callbacks should be called, if existing', function()
